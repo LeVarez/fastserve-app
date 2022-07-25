@@ -34,7 +34,7 @@ const getOrCreateUser = async (profile: GoogleProfile) => {
   if (user) {
     return user;
   }
-
+  
   //Not user found, create new one
   const walletId = Math.random().toString(36).substring(7);
   
@@ -113,7 +113,7 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
     if (!token?.user) { // not signed in
       return isApi
       ? { status: 401, body: { error: 'Unauthorized' } }
-      : { status: 302, headers: { 'Location': await auth.getRedirectUrl(opts.redirect || '/cms') } };
+      : { status: 302, headers: { 'Location': await auth.getRedirectUrl(opts.redirect || '/') } };
     }
 
     const user = await prisma.user.findUnique({ where: { id: token.user.id } });
@@ -124,12 +124,13 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
       return isApi
       ? {
         status: 400,
+        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`},
         body: { error: 'Invalid user token' }
       }
       : {
         status: 302,
         headers: {
-
+          "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`,
           "Location": '/api/auth/signin/google',
           "contentType": "application/json; charset=utf-8",
         }
