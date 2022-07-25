@@ -9,8 +9,6 @@ let amount: number = 0;
 let charging = false;
 
 const onSuccesFn = async (decodedText: string) => {
-  
-  alert(`Code matched = ${decodedText}`);
 
   //send api request to update wallet
   if(!charging){
