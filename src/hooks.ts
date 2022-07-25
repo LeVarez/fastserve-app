@@ -14,6 +14,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 export const getSession = async (event: RequestEvent<Record<string, string>>) => {
   const {user} = await appAuth.getSession(event);
-  const appUser = await prisma.user.findUnique({ where: { id: user.id } });
+  const appUser = await prisma.user.findUnique({ where: { id: user?.id } });
   return { user: appUser };
 }
