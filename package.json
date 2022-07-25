@@ -1,8 +1,8 @@
 {
-	"name": "fastserve-app",
+	"name": "fastserve",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
@@ -15,21 +15,43 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.22.2",
+		"@poppanator/sveltekit-svg": "^0.3.4",
+		"@rollup/plugin-image": "^2.1.1",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@types/bcrypt": "^5.0.0",
+		"@types/cookie": "^0.5.1",
+		"@types/qrcode": "^1.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
+		"crypto": "^1.0.1",
+		"dotenv": "^16.0.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"html5-qrcode": "^2.2.1",
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
-		"svelte": "^3.44.0",
+		"prisma": "^4.1.0",
+		"qrcode": "^1.5.1",
+		"random-hash": "^4.0.1",
+		"sk-auth": "^0.4.1",
+		"stylus": "^0.55.0",
+		"svelte": "^3.46.0",
 		"svelte-check": "^2.7.1",
 		"svelte-preprocess": "^4.10.6",
+		"svelte-qrcode": "^1.0.0",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
 		"vite": "^3.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@fontsource/fira-mono": "^4.5.0",
+		"@prisma/client": "^4.1.0",
+		"bcrypt": "^5.0.1",
+		"cookie": "^0.4.1",
+		"qrcodejs": "^1.0.0",
+		"svelte-burger-menu": "^1.0.5"
+	}
 }

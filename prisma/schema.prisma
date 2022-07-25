@@ -1,0 +1,34 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
+// model Tag {
+
+enum Role {
+  USER
+  BALANNCE_RECHARGER
+  SELLER
+  ADMIN
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  name      String?
+  googleId  String? @unique
+  role      Role    @default(USER)
+  img       String?
+}
+
+model Wallet {
+  id        String  @id
+  userId    Int     @unique
+  balance   Int     @default(0)
+}
