@@ -82,12 +82,10 @@ export const appAuth = new SvelteKitAuth({
       if (profile?.provider === "google") {	
         const { provider, ...account } = profile;
         const user = await getOrCreateUser(profile);
+        const { id } = user;
         token = {
           ...token,
-          user: {
-            ...(token.user ?? {}),
-            connections: { ...(token.user?.connections ?? {}), [provider]: account },
-          },
+          user: { id },
         };
       }
 
