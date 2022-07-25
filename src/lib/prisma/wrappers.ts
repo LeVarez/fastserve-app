@@ -1,7 +1,7 @@
-import type { updateWalletRequest } from "$lib/types";
+import type { UpdateWalletRequest } from "$lib/types";
 import { prisma } from ".";
 
-export async function updateWallet(id: string, request: updateWalletRequest) {
+export async function updateWallet(id: string, data: UpdateWalletRequest) {
   let wallet = await prisma.wallet.findUnique({
     where: {
       id
@@ -17,7 +17,7 @@ export async function updateWallet(id: string, request: updateWalletRequest) {
       id
     },
     data: {
-      balance: wallet.balance + request.amount
+      balance: wallet.balance + data.amount
     }
   });
 

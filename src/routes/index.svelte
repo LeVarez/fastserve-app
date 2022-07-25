@@ -6,10 +6,6 @@ import Icon from "$lib/components/generic/Icon.svelte";
 
   export let wallet: Wallet;
   export let user: User;
-
-  console.log("wallet", wallet);
-  console.log("user", user);
-  console.log('session', $session.user);
 </script>
 
 {#if $session.user}
@@ -21,6 +17,8 @@ import Icon from "$lib/components/generic/Icon.svelte";
       <Icon icon='fmlogo'/>
     </div>
   </div>
+
+  AMOUNT: {wallet.balance}
  
 {:else}
   <div class="main-page-container">

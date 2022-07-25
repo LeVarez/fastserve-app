@@ -1,6 +1,7 @@
 <script lang="ts">
 import QrScanner from "$lib/components/QRScanner.svelte";
 import { updateWallet } from "$lib/api";
+import { onMount } from "svelte";
 
 const onSuccesFn = async (decodedText: string) => {
   alert(`Code matched = ${decodedText}`);
@@ -8,7 +9,6 @@ const onSuccesFn = async (decodedText: string) => {
   const wallet = await updateWallet(decodedText, {amount: 10});
   alert(`Wallet updated = ${wallet}`);
 };
-
 
 </script>
 

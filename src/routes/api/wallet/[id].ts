@@ -1,12 +1,11 @@
 import { authMiddleware } from "$lib/auth";
 import { updateWallet } from "$lib/prisma/wrappers";
-import type { updateWalletRequest } from "$lib/types";
+import type { UpdateWalletRequest } from "$lib/types";
 
-export const patch = authMiddleware(
+export const PATCH = authMiddleware(
   { role:'BALANCE_RECHARGER' },
   async ({ request, params }) => {
-
-    const data = await request.json() as updateWalletRequest;
+    const data = await request.json() as UpdateWalletRequest;
 
     const tag = await updateWallet(params.id, data);
     return {
