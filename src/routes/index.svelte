@@ -5,6 +5,7 @@ import Icon from "$lib/components/generic/Icon.svelte";
   import type { Wallet } from "@prisma/client";
 
   export let wallet: Wallet;
+  console.log('session', $session.user);
 </script>
 
 {#if $session.user}
