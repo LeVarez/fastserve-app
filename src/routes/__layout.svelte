@@ -22,7 +22,7 @@
  
     <div class="top-nav-user">
       Logged in as {$session.user.name}
-      <div on:click={signOut}>Signout</div>
+      <a href="/api/auth/signout">Signout</a>
     </div>	
     <ControlMenu />
 
