@@ -88,7 +88,7 @@ export const auth = new SvelteKitAuth({
           user: { id }
         };
       }
-      return token;
+      return null;
     },
   },
   jwtSecret: env.jwtSecret,
