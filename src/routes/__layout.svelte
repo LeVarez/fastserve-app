@@ -19,7 +19,7 @@
  
     <div class="top-nav-user">
       Logged in as {$session.user.name}
-      <a href="/api/auth/signout/google">Signout</a>
+      <a href="/api/auth/signout">Signout</a>
     </div>	
     <ControlMenu />
 
