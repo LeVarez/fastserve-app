@@ -1,4 +1,4 @@
-import type { RequestHandler } from "@sveltejs/kit";
+import type { GetSession, RequestHandler } from "@sveltejs/kit";
 import { SvelteKitAuth } from "sk-auth";
 import { GoogleOAuth2Provider } from "sk-auth/providers";
 import { prisma } from '$lib/prisma';
@@ -34,7 +34,6 @@ const getOrCreateUser = async (profile: GoogleProfile) => {
   if (user) {
     return user;
   }
-  
   //Not user found, create new one
   const walletId = Math.random().toString(36).substring(7);
   
@@ -79,17 +78,7 @@ export const auth = new SvelteKitAuth({
   callbacks: {
     redirect: () => {
       return '/';
-    },
-    async jwt(token, profile) {
-      if (profile?.provider === 'google') {
-        const user = await getOrCreateUser(profile);
-        const { id } = user;
-        token = { ...token,
-          user: { id }
-        };
-      }
-      return token;
-    },
+    }
   },
   jwtSecret: env.jwtSecret,
 });
@@ -124,7 +113,7 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
       return isApi
       ? {
         status: 400,
-        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly` },
+        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`, "contentType": "application/json; charset=utf-8", },
         body: { error: 'Invalid user token' }
       }
       : {
@@ -148,3 +137,10 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
 
   };
 }
+
+// augmenting it
+export const getSession: GetSession = async (request) => {
+  const { user } = await auth.getSession(request);
+
+  return { user };
+};
