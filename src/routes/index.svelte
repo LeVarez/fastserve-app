@@ -1,11 +1,11 @@
 <script lang="ts">
   import { session } from "$app/stores";
-import Icon from "$lib/components/generic/Icon.svelte";
+  import Icon from "$lib/components/generic/Icon.svelte";
   import QrGenerator from "$lib/components/QRGenerator.svelte";
   import type { Wallet, User } from "@prisma/client";
 
   export let wallet: Wallet;
-  export let user: User;
+
 </script>
 
 {#if $session.user}
