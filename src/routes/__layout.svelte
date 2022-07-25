@@ -2,6 +2,8 @@
   import { session } from "$app/stores";
   import ControlMenu from "$lib/components/ControlMenu.svelte";
   import Icon from "$lib/components/generic/Icon.svelte";
+
+  console.log($session)
 </script>
 <div class="top-nav">
 {#if $session.user === undefined}

@@ -7,6 +7,7 @@ import env from "./env";
 // generated files interact with svelte-kit prod builds
 import PrismaClient from "@prisma/client";
 import type { Role as _Role } from "@prisma/client";
+import type { GetSession } from "@sveltejs/kit";
 const Role = PrismaClient.Role;
 
 interface GoogleProfile {
@@ -149,3 +150,9 @@ function roleCheck(userRole: _Role, requiredRole: _Role) {
   };
   return ROLE_VALUES[userRole] >= ROLE_VALUES[requiredRole];
 }
+
+export const getSession: GetSession = async (request) => {
+  const { user } = await appAuth.getSession(request);
+  
+  return { user };
+};
