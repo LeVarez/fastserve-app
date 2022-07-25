@@ -113,7 +113,7 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
     if (!token?.user) { // not signed in
       return isApi
       ? { status: 401, body: { error: 'Unauthorized' } }
-      : { status: 302, headers: { 'Location': await auth.getRedirectUrl(opts.redirect || '/') } };
+      : { status: 302, headers: { 'Location': await auth.getRedirectUrl(opts.redirect || '/cms') } };
     }
 
     const user = await prisma.user.findUnique({ where: { id: token.user.id } });
@@ -124,7 +124,7 @@ export function authMiddleware(opts: { role: _Role, redirect?: string }, handler
       return isApi
       ? {
         status: 400,
-        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`},
+        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly` },
         body: { error: 'Invalid user token' }
       }
       : {
