@@ -94,3 +94,58 @@ export const appAuth = new SvelteKitAuth({
   },
   jwtSecret: env.jwtSecret,
 });
+
+export function authMiddleware(opts: { role: _Role, redirect?: string }, handler: RequestHandler): RequestHandler {
+  return async event => {
+
+    const token = await appAuth.getToken(event.request.headers);
+    const isApi = event.url.pathname.startsWith('/api/');
+
+    if (!token?.user) { // not signed in
+      return isApi
+      ? { status: 401, body: { error: 'Unauthorized' } }
+      : { status: 302, headers: { 'Location': await appAuth.getRedirectUrl(opts.redirect || '/') } };
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: token.user.id } });
+
+    if (!user) { // invalid user so clear the token
+      const token = appAuth.setToken(event.request.headers, {});
+      const jwt = appAuth.signToken(token);
+      return isApi
+      ? {
+        status: 400,
+        headers: { "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`, "contentType": "application/json; charset=utf-8", },
+        body: { error: 'Invalid user token' }
+      }
+      : {
+        status: 302,
+        headers: {
+          "set-cookie": `svelteauthjwt=${jwt}; Path=/; HttpOnly`,
+          "Location": '/api/auth/signin/google',
+          "contentType": "application/json; charset=utf-8",
+        }
+      };
+    }
+    else if (!roleCheck(user.role, opts.role)) { // valid user but not authorized
+      return {
+        status: 401,
+        body: { error: 'Not authorized' }
+      };
+    }
+    else {
+      return handler(event);
+    }
+
+  };
+}
+
+function roleCheck(userRole: _Role, requiredRole: _Role) {
+  const ROLE_VALUES = {
+    USER: 0,
+    SELLER: 1,
+    BALANCE_RECHARGER: 2,
+    ADMIN: 3,
+  };
+  return ROLE_VALUES[userRole] >= ROLE_VALUES[requiredRole];
+}

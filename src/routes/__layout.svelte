@@ -2,10 +2,6 @@
   import { session } from "$app/stores";
   import ControlMenu from "$lib/components/ControlMenu.svelte";
   import Icon from "$lib/components/generic/Icon.svelte";
-  import { signOut as authSignOut } from "sk-auth/client";
-  function signOut() {
-    authSignOut().then(session.set);
-  }
 </script>
 <div class="top-nav">
 {#if $session.user === undefined}
