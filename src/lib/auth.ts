@@ -3,8 +3,6 @@ import { SvelteKitAuth } from "sk-auth";
 import { GoogleOAuth2Provider } from "sk-auth/providers";
 import { prisma } from '$lib/prisma';
 import env from "./env";
-import bcrypt from "bcrypt";
-import crypto from "crypto";
 
 
 // weird import workaround here because of how prisma's
@@ -37,7 +35,7 @@ const getOrCreateUser = async (profile: GoogleProfile) => {
     return user;
   }
   //Not user found, create new one
-  const walletId = crypto.randomBytes(20).toString("hex");
+  const walletId = Math.random().toString(36).substring(7);
   
   const realUser = await prisma.user.findFirst({
     where: { NOT: { googleId: null }}

@@ -24,7 +24,6 @@
 		"@types/qrcode": "^1.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
-		"crypto": "^1.0.1",
 		"dotenv": "^16.0.1",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
@@ -49,6 +48,7 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"@prisma/client": "^4.1.0",
+		"@sveltejs/adapter-node": "^1.0.0-next.83",
 		"bcrypt": "^5.0.1",
 		"cookie": "^0.4.1",
 		"qrcodejs": "^1.0.0",
