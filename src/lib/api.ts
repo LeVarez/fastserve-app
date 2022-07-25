@@ -1,4 +1,3 @@
-import { prisma } from "./prisma";
 import type { updateWalletRequest } from "./types";
 
 export async function updateWallet(walletId: string, data: updateWalletRequest) {
