@@ -13,7 +13,7 @@ datasource db {
 
 enum Role {
   USER
-  BALANNCE_RECHARGER
+  BALANCE_RECHARGER
   SELLER
   ADMIN
 }
