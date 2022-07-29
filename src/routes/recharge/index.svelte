@@ -10,7 +10,7 @@ let charging = false;
 
 const onSuccesFn = async (decodedText: string) => {
   //send api request to update wallet
-  if(!charging && !scanning){ //prevent double charging
+  if(!charging && scanning){ //prevent double charging
     charging = true;
     const wallet = await updateWallet(decodedText, {amount});
     charging = false;
